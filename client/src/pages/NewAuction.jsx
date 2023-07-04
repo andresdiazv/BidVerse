@@ -1,5 +1,5 @@
 //form to create a new auction
-import React, { Component } from "react";
+import React from "react";
 
 const NewAuction = () => {
   return (
