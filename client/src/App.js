@@ -1,13 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Routes from "./config/routes";
+import React from 'react';
+import Home from './pages/Home';
+import Auctions from './pages/Auctions';
+import AuctionDetail from './pages/AuctionDetails';
+import NewAuction from './pages/NewAuction';
+import Auth from './pages/Auth';
 
 function App() {
   return (
     <div>
-      <Router>
-        <Routes />
-      </Router>
+      <Home />
+      <Auctions />
+      <AuctionDetail />
+      <NewAuction />
+      <Auth />
     </div>
   );
 }

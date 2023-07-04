@@ -1,14 +1,14 @@
 //home page to welcome user
 
-import React from 'react'
+import React from 'react';
 
 const Home = () => {
-    return (
-        <div>
-            <h1>Welcome to BidVerse Auction Site</h1>
-            <p>You're welcome to start bidding on your favorite items!</p>
-        </div>
-    )
-}
+  return (
+    <div>
+      <h1>Welcome to our Auction Site</h1>
+      <p>Join the bidding wars and grab your favourite items!</p>
+    </div>
+  );
+};
 
-export default Home
+export default Home;
