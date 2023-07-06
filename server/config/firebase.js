@@ -10,4 +10,4 @@ initializeApp ( {
 const db = getFirestore()
 const auth = admin.auth();
 
-module.exports = { db }
+module.exports = { db, auth, admin }
