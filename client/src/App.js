@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Routes from "./config/routes";
+import React from "react";
+import RegisterPage from "./registrationPage";
+import LoginPage from "./LoginPage";
+import LogoutButton from "./Logout";
 
 function App() {
   return (
-    <div>
-      <Router>
-        <Routes />
-      </Router>
+    <div className="App">
+     <RegisterPage />
+     <LoginPage />
+     <LogoutButton />
     </div>
   );
 }
