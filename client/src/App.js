@@ -1,23 +1,26 @@
 import React from "react";
-import Home from "./pages/Home";
-import Auctions from "./pages/Auctions";
-import AuctionDetail from "./pages/AuctionDetails";
-import NewAuction from "./pages/NewAuction";
-import Auth from "./pages/Auth";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import RegisterPage from "./components/registrationPage";
+import LoginPage from "./components/LoginPage";
+import LogoutButton from "./components/Logout";
+import AddItems from "./components/addItems";
+import ItemList from "./components/searchBarFunc";
+import ItemDetail from "./components/itemDetail";
+import ActiveUsers from "./components/activeUsers";
+import OrderComponent from "./components/orders";
+import HomePage from "./components/home";
 
-function App() {
+const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/auctions" element={<Auctions />} />
-        <Route path="/auctions/:id" element={<AuctionDetail />} />
-        <Route path="/new-auction" element={<NewAuction />} />
-        <Route path="/auth" element={<Auth />} />
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage/>} />
+        <Route path="/home" element={<HomePage/>} />
+        <Route path="/items" element={<ItemDetail/>} />
       </Routes>
     </Router>
   );
-}
+};
 
 export default App;
