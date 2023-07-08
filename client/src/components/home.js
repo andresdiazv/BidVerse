@@ -1,16 +1,24 @@
 import React, { useState } from 'react';
 import { Typography, TextField, Button, Container, Tab, Tabs } from '@mui/material';
 import ItemList from './searchBarFunc';
+import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [value, setValue] = useState(0);
   
   const handleTabChange = (event, newValue) => {
     setValue(newValue);
+    if( newValue == 6) {
+        navigate('/bidding');
+    }
+    if( newValue == 7) {
+        navigate('/makeABid');
+    }
   }
   
-  const handleSearch = (e) => {
+  const hsandleSearch = (e) => {
     e.preventDefault();
     // Handle the search functionality
     console.log('Searching for:', searchTerm);
@@ -50,6 +58,8 @@ const HomePage = () => {
         <Tab label="Food" />
         <Tab label="Toys" />
         <Tab label="Furniture" />
+        <Tab label="Post an Item" />
+        <Tab label="Bid" />
       </Tabs>
       <ItemList 
       />

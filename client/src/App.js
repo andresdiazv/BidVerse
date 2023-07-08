@@ -5,10 +5,12 @@ import LoginPage from "./components/LoginPage";
 import LogoutButton from "./components/Logout";
 import AddItems from "./components/addItems";
 import ItemList from "./components/searchBarFunc";
-import ItemDetail from "./components/itemDetail";
 import ActiveUsers from "./components/activeUsers";
 import OrderComponent from "./components/orders";
 import HomePage from "./components/home";
+import ItemDetail from "./components/itemDetail";
+import MakeABid from "./makeABid";
+
 
 const App = () => {
   return (
@@ -17,7 +19,12 @@ const App = () => {
         <Route path="/" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage/>} />
         <Route path="/home" element={<HomePage/>} />
-        <Route path="/items" element={<ItemDetail/>} />
+        <Route path="/items/:itemId" element={<ItemList/>} />
+        <Route path="/bidding" element={<AddItems/>} />
+        <Route path="/makeABid" element={<MakeABid/>} />
+
+        <Route path="/items/:itemId" element={<ItemDetail />} />
+
       </Routes>
     </Router>
   );

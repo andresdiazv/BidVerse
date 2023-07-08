@@ -52,10 +52,14 @@ const ItemList = () => {
             <ListItem
               button
               component={Link}
-              to={`http://localhost:5000/api/items/${item.id}`} 
+              to={`/items/${item.id}`}
               key={item.id}
             >
-              <ListItemText primary={item.title} />
+              <ListItemText primary={item.title} secondary={item.description} />
+              <ListItemText primary={`Buyout Price: ${item.buyoutPrice}`} />
+              <ListItemText primary={`Start Time: ${item.startTime}`} />
+              <ListItemText primary={`End Time: ${item.endTime}`} />
+              <ListItemText primary={`User: ${item.uid}`} />
             </ListItem>
           ))}
         </List>
