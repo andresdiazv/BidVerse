@@ -1,5 +1,5 @@
 import React from 'react';
-import { auth } from './Config/firebase'; // Import the Firebase auth instance
+import { auth } from '../Config/firebase'; // Import the Firebase auth instance
 
 const LogoutButton = () => {
   const handleLogout = async () => {
