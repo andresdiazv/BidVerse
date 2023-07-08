@@ -168,35 +168,15 @@ app.post('/api/bids', async (req, res) => {
 
 app.post('/api/items', async (req, res) => {
   try{
-    const {buyoutPrice, categoryID, description, endTime, title, currentBidPrice} = req.body;
-
-    if (!req.user) {
-      return res.status(401).json({ error: 'User not authenticated'});
-    }
-
-    const sellerID = req.user.id;
-
     const newItem = {
-      status: false,
-      buyoutPrice: buyoutPrice,
-      categoryID: categoryID,
-      currentBidPrice: currentBidPrice,
-      description: description,
-      startTime: new Date(),
-      endTime: new Date(endTime),
-      title: title,
-      sellerID: sellerID
+      ...req.body,
+      
     }
     
-    const currentTime = new Date();
-    if (currentTime >= newItem.startTime && currentTime <= newItem.endTime && !newItem.buyoutPrice){
-      newItem.status = true;
-    }
-
     const itemRef = db.collection('items');
-    const itemDocRef = await itemRef.doc(title).set(newItem);
+    const itemDocRef = await itemRef.add(newItem);
     
-
+    console.log("Item added successfully");
     res.json({ id: itemDocRef.id, data: newItem})
   }catch (error) {
     console.error('Error creating item:', error);
