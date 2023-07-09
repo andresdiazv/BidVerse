@@ -1,12 +1,18 @@
 const express = require("express");
-const app = express();
+const multer = require('multer');
 const port = 5000;
 const cors = require('cors');
 const path = require('path');
 const { db, auth, admin } = require('./config/firebase')
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: {
+    fileSize: 5 * 1024 * 1024 // no larger than 5mb
+  },
+});
 
+const app = express();
 app.use(cors());
-
 app.use(express.json())
 
 
@@ -189,8 +195,40 @@ app.get('/api/items', async (req, res) => {
   }
 });
 
+app.post("/upload", upload.single("image"), async (req, res) => {
+  const userId = req.body.userId;
+  const file = req.file;
 
+  // Ensure a file was provided
+  if (!file) {
+    res.status(400).send("No file uploaded.");
+    return;
+  }
 
+  const bucket = admin.storage().bucket();
+  const filename = Date.now() + file.originalname; // unique name using timestamp
+  const fileUpload = bucket.file(`${userId}/${filename}`);
+
+  const stream = fileUpload.createWriteStream({
+    metadata: {
+      contentType: file.mimetype,
+    },
+  });
+
+  stream.on("error", (error) => {
+    console.error("Error uploading file:", error);
+    res.status(500).send("Error uploading file");
+  });
+
+  stream.on("finish", () => {
+    fileUpload.makePublic().then(() => {
+      const imageUrl = `https://storage.googleapis.com/${bucket.name}/${userId}/${filename}`;
+      res.status(200).json({ imageUrl: imageUrl });
+    });
+  });
+
+  stream.end(file.buffer);
+});
 
   app.listen(port, () => {
   console.log(`Server running on port ${port}`);
