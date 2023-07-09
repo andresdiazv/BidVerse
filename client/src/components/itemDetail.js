@@ -32,30 +32,11 @@ const ItemDetail = () => {
   }
 
   return (
-    <Container maxWidth="sm">
-      <Card sx={{ mt: 4 }}>
-        <CardContent>
-          <Typography variant="h5" component="div" gutterBottom>
-            {item.title}
-          </Typography>
-          <Typography variant="subtitle1" gutterBottom>
-            Category: {item.category}
-          </Typography>
-          <Divider sx={{ my: 2 }} />
-          <Typography variant="body1">{item.description}</Typography>
-          <Divider sx={{ my: 2 }} />
-          <Typography variant="body2">
-            <strong>Buyout Price:</strong> ${item.buyoutPrice}
-          </Typography>
-          <Typography variant="body2">
-            <strong>Start Time:</strong> {item.startTime}
-          </Typography>
-          <Typography variant="body2">
-            <strong>End Time:</strong> {item.endTime}
-          </Typography>
-        </CardContent>
-      </Card>
-    </Container>
+    <div>
+    <h1>Item Details</h1>
+    <p>Item ID: {itemId}</p>
+    {/* Display the rest of the item details */}
+  </div>
   );
 };
 

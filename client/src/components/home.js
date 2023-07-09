@@ -63,6 +63,10 @@ const HomePage = () => {
   const handleSearch = (value) => {
     setSearchTerm(value);
     console.log("Searching for:", searchTerm);
+    
+    if (newValue == 5) {
+      navigate('');
+    }
   };
 
   const handleItemClick = (item) => {

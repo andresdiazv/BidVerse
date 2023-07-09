@@ -10,6 +10,8 @@ import ActiveUsers from "./components/activeUsers";
 import OrderComponent from "./components/orders";
 import HomePage from "./components/home";
 import CategoryPage from "./components/CategoryPage";
+import Account from "./components/account";
+import PaymentOptions from './components/paymentOptions'
 
 const App = () => {
   return (
@@ -27,6 +29,8 @@ const App = () => {
         <Route path="/food" element={<CategoryPage />} />
         <Route path="/toys" element={<CategoryPage />} />
         <Route path="/furniture" element={<CategoryPage />} />
+        <Route path="/account" element={<Account/>} />
+        <Route path="/paymentOptions" element={<PaymentOptions/>} />
       </Routes>
     </Router>
   );
