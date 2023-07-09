@@ -10,6 +10,7 @@ import ActiveUsers from "./components/activeUsers";
 import OrderComponent from "./components/orders";
 import HomePage from "./components/home";
 import Account from "./components/account";
+import PaymentOptions from './components/paymentOptions'
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="/items" element={<ItemDetail/>} />
         <Route path="/addItem" element={<AddItems/>} />
         <Route path="/account" element={<Account/>} />
+        <Route path="/paymentOptions" element={<PaymentOptions/>} />
 
       </Routes>
     </Router>

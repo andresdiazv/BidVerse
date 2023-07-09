@@ -3,6 +3,10 @@ import { Box, Typography, Container, Tab, Tabs, Paper } from '@mui/material';
 import { auth } from '../Config/firebase';
 import { useNavigate } from 'react-router-dom';
 import UserInformation from './userInformation';
+import PaymentOptions from './paymentOptions';
+
+
+
 const Account = () => {
     const navigate = useNavigate();
     const [value, setValue] = useState(0);
@@ -64,6 +68,7 @@ const Account = () => {
       </Box>
       <Box>
       {value === 0 && <UserInformation />}
+      {value === 1 && <PaymentOptions />}
       </Box>
     </Container>
   );
