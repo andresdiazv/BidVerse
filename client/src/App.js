@@ -9,6 +9,7 @@ import ItemDetail from "./components/itemDetail";
 import ActiveUsers from "./components/activeUsers";
 import OrderComponent from "./components/orders";
 import HomePage from "./components/home";
+import Account from "./components/account";
 
 const App = () => {
   return (
@@ -19,6 +20,8 @@ const App = () => {
         <Route path="/home" element={<HomePage/>} />
         <Route path="/items" element={<ItemDetail/>} />
         <Route path="/addItem" element={<AddItems/>} />
+        <Route path="/account" element={<Account/>} />
+
       </Routes>
     </Router>
   );

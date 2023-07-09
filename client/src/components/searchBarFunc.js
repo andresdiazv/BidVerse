@@ -55,11 +55,6 @@ const ItemList = () => {
               key={item.id}
             >
               <ListItemText primary={item.title} />
-              <ListItemText primary={`Description: ${item.description}`} />
-              <ListItemText primary={`Buyout Price: ${item.buyoutPrice}`} />
-              <ListItemText primary={`Start Time: ${item.startTime}`} />
-              <ListItemText primary={`End Time: ${item.endTime}`} />
-              <ListItemText primary={`User: ${item.uid}`} />
             </ListItem>
           ))}
         </List>

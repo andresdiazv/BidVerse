@@ -14,6 +14,9 @@ const HomePage = () => {
     if (newValue === 6) {
       navigate('/addItems');
     }
+    if (newValue == 5) {
+      navigate('');
+    }
   };
 
   const handleSearch = (e) => {
