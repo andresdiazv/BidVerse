@@ -13,19 +13,16 @@ app.use(express.json())
 // Register API
 app.post('/api/auth/register', async (req, res) => {
   try{
-    const newItem= req.body 
-
-    //This create a unique user document in Users collection 
-    await admin.firestore().collection('Users').doc(userRecord.uid).set({
-      firstName,
-      lastName,
-      address,
-      email,
-      password,
-    })
+    const newUser = {
+      ...req.body,
+      
+    }
     
-
-    res.status(200).send(userRecord);
+    const userRef = db.collection('Users');
+    const userDocRef = await userRef.add(newUser);
+    
+    console.log("Item added successfully");
+    res.json({ id: userDocRef.id, data: newUser})
   }catch (error) {
     res.status(400).send(error.message);
   }
