@@ -9,6 +9,7 @@ import ItemDetail from "./components/itemDetail";
 import ActiveUsers from "./components/activeUsers";
 import OrderComponent from "./components/orders";
 import HomePage from "./components/home";
+import CategoryPage from "./components/CategoryPage";
 
 const App = () => {
   return (
@@ -19,6 +20,13 @@ const App = () => {
         <Route path="/home" element={<HomePage/>} />
         <Route path="/items" element={<ItemDetail/>} />
         <Route path="/addItem" element={<AddItems/>} />
+        <Route path="/category/:category" element={<CategoryPage />} /> {/* Here's the change */}
+        <Route path="/electronics" element={<CategoryPage />} />
+        <Route path="/sports" element={<CategoryPage />} />
+        <Route path="/cars" element={<CategoryPage />} />
+        <Route path="/food" element={<CategoryPage />} />
+        <Route path="/toys" element={<CategoryPage />} />
+        <Route path="/furniture" element={<CategoryPage />} />
       </Routes>
     </Router>
   );

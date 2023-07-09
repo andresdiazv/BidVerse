@@ -11,9 +11,9 @@ import {
   Select,
   MenuItem,
   FormControl,
-  InputLabel
+  InputLabel,
 } from "@mui/material";
-import DatePicker from '@mui/lab/DatePicker';
+import DatePicker from "@mui/lab/DatePicker";
 import Header from "./Header";
 
 import { useDropzone } from "react-dropzone";
@@ -24,8 +24,8 @@ const AddItems = () => {
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
   const [buyoutPrice, setBuyoutPrice] = useState("");
-  const [startTime, setStartTime] = useState("");
-  const [endTime, setEndTime] = useState("");
+  const [startTime, setStartTime] = useState(null);
+  const [endTime, setEndTime] = useState(null);
   const [image, setImage] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
 
@@ -77,13 +77,13 @@ const AddItems = () => {
         console.log(response.data);
 
         // Reset the form fields
-        setTitle('');
-        setItem('');
-        setCategory('');
-        setDescription('');
-        setBuyoutPrice('');
-        setStartTime('');
-        setEndTime('');
+        setTitle("");
+        setItem("");
+        setCategory("");
+        setDescription("");
+        setBuyoutPrice("");
+        setStartTime("");
+        setEndTime("");
         setImage(null);
         setImageUrl(null);
 
@@ -117,9 +117,21 @@ const AddItems = () => {
 
   return (
     <>
-      <Header/>
-      <Container maxWidth="sm" sx={{ backgroundColor: 'white', padding: '2rem', borderRadius: '8px', boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.1)' }}>
-        <Typography variant="h4" gutterBottom sx={{ fontWeight: 600, marginBottom: '1rem', color: '#3f51b5' }}>
+      <Header />
+      <Container
+        maxWidth="sm"
+        sx={{
+          backgroundColor: "white",
+          padding: "2rem",
+          borderRadius: "8px",
+          boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.1)",
+        }}
+      >
+        <Typography
+          variant="h4"
+          gutterBottom
+          sx={{ fontWeight: 600, marginBottom: "1rem", color: "#3f51b5" }}
+        >
           Create Item
         </Typography>
         <form onSubmit={handleSubmit}>
@@ -154,10 +166,12 @@ const AddItems = () => {
                   label="Category"
                   onChange={(e) => setCategory(e.target.value)}
                 >
-                  <MenuItem value={'electronics'}>Electronics</MenuItem>
-                  <MenuItem value={'furniture'}>Furniture</MenuItem>
-                  <MenuItem value={'clothing'}>Clothing</MenuItem>
-                  {/* Add any other categories you have */}
+                  <MenuItem value={"electronics"}>Electronics</MenuItem>
+                  <MenuItem value={"sports"}>Sports</MenuItem>
+                  <MenuItem value={"cars"}>Cars</MenuItem>
+                  <MenuItem value={"food"}>Food</MenuItem>
+                  <MenuItem value={"toys"}>Toys</MenuItem>
+                  <MenuItem value={"furniture"}>Furniture</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
@@ -202,11 +216,11 @@ const AddItems = () => {
             <Grid item xs={12}>
               <div {...getRootProps()}>
                 <input {...getInputProps()} />
-                {
-                  image 
-                    ? <p>File selected: {image.path}</p> 
-                    : <p>Drag 'n' drop some files here, or click to select files</p>
-                }
+                {image ? (
+                  <p>File selected: {image.path}</p>
+                ) : (
+                  <p>Drag 'n' drop some files here, or click to select files</p>
+                )}
               </div>
             </Grid>
             <Grid item xs={12}>

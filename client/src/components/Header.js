@@ -82,12 +82,12 @@ const Header = ({ value, handleTabChange, searchTerm, handleSearch }) => {
         />
       </Box>
       <Tabs value={value} onChange={handleTabChange} centered>
-        <Tab label="Electronics" component={RouterLink} to="/electronics" />
-        <Tab label="Sports" component={RouterLink} to="/sports" />
-        <Tab label="Cars" component={RouterLink} to="/cars" />
-        <Tab label="Food" component={RouterLink} to="/food" />
-        <Tab label="Toys" component={RouterLink} to="/toys" />
-        <Tab label="Furniture" component={RouterLink} to="/furniture" />
+        <Tab label="Electronics" component={RouterLink} to="/category/electronics" />
+        <Tab label="Sports" component={RouterLink} to="/category/sports" />
+        <Tab label="Cars" component={RouterLink} to="/category/cars" />
+        <Tab label="Food" component={RouterLink} to="/category/food" />
+        <Tab label="Toys" component={RouterLink} to="/category/toys" />
+        <Tab label="Furniture" component={RouterLink} to="/category/furniture" />
         <Tab label="Post an Item" component={RouterLink} to="/addItem" />
       </Tabs>
       <Link component={RouterLink} to="/account" underline="none">

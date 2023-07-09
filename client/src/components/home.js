@@ -24,6 +24,7 @@ const HomePage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [value, setValue] = useState(0);
   const [items, setItems] = useState([]);
+  const [category, setCategory] = useState(""); // Added category state
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -41,10 +42,23 @@ const HomePage = () => {
 
   const handleTabChange = (event, newValue) => {
     setValue(newValue);
+  
+    const categories = [
+      "electronics",
+      "sports",
+      "cars",
+      "food",
+      "toys",
+      "furniture",
+    ];
+    setCategory(categories[newValue] || "");
+  
     if (newValue === 6) {
-      navigate("/addItems");
+      navigate("/addItem");
+    } else {
+      navigate(`/category/${categories[newValue]}`);
     }
-  };
+  };  
 
   const handleSearch = (value) => {
     setSearchTerm(value);
@@ -65,23 +79,29 @@ const HomePage = () => {
       />
       <Container maxWidth="lg">
         <Grid container spacing={4}>
-          {items.map((item) => (
-            <Grid item key={item.id} xs={12} sm={6} md={4}>
-              <Card onClick={() => handleItemClick(item)}>
-                <CardMedia
-                  component="img"
-                  height="140"
-                  image={
-                    item.imageUrl || "http://path/to/your/default/image.jpg"
-                  }
-                  alt={item.title}
-                />
-                <CardContent>
-                  <Typography variant="h6">{item.title}</Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
+          {items
+            .filter((item) => !category || item.category === category)
+            .map(
+              (
+                item // Filtering items based on category
+              ) => (
+                <Grid item key={item.id} xs={12} sm={6} md={4}>
+                  <Card onClick={() => handleItemClick(item)}>
+                    <CardMedia
+                      component="img"
+                      height="140"
+                      image={
+                        item.imageUrl || "http://path/to/your/default/image.jpg"
+                      }
+                      alt={item.title}
+                    />
+                    <CardContent>
+                      <Typography variant="h6">{item.title}</Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              )
+            )}
         </Grid>
       </Container>
     </>
