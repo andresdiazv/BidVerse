@@ -13,11 +13,8 @@ app.use(express.json())
 // Register API
 app.post('/api/auth/register', async (req, res) => {
   try{
-    const { email, password, firstName, lastName, address } = req.body;
-    const userRecord = await admin.auth().createUser({
-      email,
-      password,
-    })
+    const newItem= req.body 
+
     //This create a unique user document in Users collection 
     await admin.firestore().collection('Users').doc(userRecord.uid).set({
       firstName,
@@ -165,7 +162,7 @@ app.post('/api/bids', async (req, res) => {
     res.status(500).json({ error: 'Failed to create bid'})
   }
 })
-
+// post the items
 app.post('/api/items', async (req, res) => {
   try{
     const newItem = {
@@ -183,6 +180,18 @@ app.post('/api/items', async (req, res) => {
     res.status(500).json({ error: 'Failed to create item'})
   }
 })
+//get the items 
+app.get('/api/items', async (req, res) => {
+  try {
+    const itemsSnapshot = await db.collection('items').get();
+    const items = itemsSnapshot.docs.map((doc) => doc.data());
+    res.json(items);
+  } catch (error) {
+    console.error('Error fetching items:', error);
+    res.status(500).json({ error: 'Failed to fetch items' });
+  }
+});
+
 
 
 

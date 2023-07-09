@@ -37,7 +37,6 @@ const ItemList = () => {
 
   return (
     <div>
-      <h1></h1>
       <TextField
         label="Search"
         variant="outlined"
@@ -46,16 +45,21 @@ const ItemList = () => {
         value={searchTerm}
         onChange={handleSearch}
       />
-      {searchTerm.trim() !== '' && (
+      {filteredItems.length > 0 && (
         <List>
           {filteredItems.map((item) => (
             <ListItem
               button
               component={Link}
-              to={`http://localhost:5000/api/items/${item.id}`} 
+              to={`/items/${item.id}`}
               key={item.id}
             >
               <ListItemText primary={item.title} />
+              <ListItemText primary={`Description: ${item.description}`} />
+              <ListItemText primary={`Buyout Price: ${item.buyoutPrice}`} />
+              <ListItemText primary={`Start Time: ${item.startTime}`} />
+              <ListItemText primary={`End Time: ${item.endTime}`} />
+              <ListItemText primary={`User: ${item.uid}`} />
             </ListItem>
           ))}
         </List>

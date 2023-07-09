@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { auth } from '../Config/firebase';
-import { Typography, TextField, Button, Container, Grid, Box, Select, MenuItem, FormControl, InputLabel, MobileDatePicker } from '@mui/material'; 
+import { Typography, TextField, Button, Container, Grid, Box, Select, MenuItem, FormControl, InputLabel, MobileDatePicker } from '@mui/material'; import Header from './Header';
 
 const AddItems = () => {
     const [title, setTitle] = useState('');
@@ -49,11 +49,36 @@ const AddItems = () => {
       }
     }
   };
+
+  const logoContainerStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: '2rem',
+  };
+
+  const logoStyle = {
+    width: '80px',
+    height: '80px',
+    marginRight: '1rem',
+    borderRadius: '50%',
+    backgroundColor: '#3f51b5',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: '#fff',
+    fontSize: '40px',
+    fontWeight: 600,
+  };
+
+
   return (
+    <>
+     <Header/>
     <Container maxWidth="sm" sx={{ backgroundColor: 'white', padding: '2rem', borderRadius: '8px', boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.1)' }}>
-      <Typography variant="h4" gutterBottom>
-        Create Item
-      </Typography>
+    <Typography variant="h4" gutterBottom sx={{ fontWeight: 600, marginBottom: '1rem', color: '#3f51b5' }}>
+  Create Item
+</Typography>
       <form onSubmit={handleSubmit}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
@@ -140,6 +165,7 @@ const AddItems = () => {
         </Grid>
       </form>
     </Container>
+    </>
   );
 };
 
