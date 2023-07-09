@@ -21,6 +21,7 @@ import { db } from "../Config/firebase";
 
 const HomePage = () => {
   const navigate = useNavigate();
+  const [newValue, setNewValue] = useState('')
   const [searchTerm, setSearchTerm] = useState("");
   const [value, setValue] = useState(0);
   const [items, setItems] = useState([]);

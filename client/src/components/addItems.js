@@ -19,6 +19,7 @@ import Header from "./Header";
 import { useDropzone } from "react-dropzone";
 
 const AddItems = () => {
+
   const [title, setTitle] = useState("");
   const [item, setItem] = useState("");
   const [category, setCategory] = useState("");
@@ -35,7 +36,7 @@ const AddItems = () => {
       setImage(acceptedFiles[0]);
     },
   });
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
