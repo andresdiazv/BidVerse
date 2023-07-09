@@ -29,6 +29,25 @@ app.post('/api/auth/register', async (req, res) => {
 
 })
 
+//payment API
+app.post('/api/newPayment', async (req, res) => {
+  try{
+    const newPayment = {
+      ...req.body,
+      
+    }
+    
+    const paymentRef = db.collection('payments');
+    const paymentDocRef = await paymentRef.add(newPayment);
+    
+    console.log("Item added successfully");
+    res.json({ id: paymentDocRef.id, data: newPayment})
+  }catch (error) {
+    res.status(400).send(error.message);
+  }
+
+})
+
 // Login API
 app.post('/api/auth/login' , async (req, res ) => {
   try{
@@ -71,27 +90,16 @@ app.post('/api/auth/logout', async (req, res) => {
 });
 
 // Get users API
-app.get('/api/users', async (req, res) => {
+app.get('/api/users/{uid}', async (req, res) => {
   try {
-    const refernceUsers = db.collection('Users') // get users from database
-    const snapShot = await refernceUsers.get();
-
-      const users = [];
-      snapShot.forEach((doc) => {
-      const data = doc.data();
-      const email = data.email;
-      const firstName = data.firstName;
-
-      users.push({email, firstName});
-    })
-    
-
-    res.json(users)
+    const usersSnapshot = await db.collection('Users').get();
+    const user = usersSnapshot.docs.map((doc) => doc.data());
+    res.json(user);
   } catch (error) {
-    console.error('There has been an erroe getting the users:', error);
-    res.status(500).json({ error: 'Failure to get users'});
+    console.error('Error fetching users:', error);
+    res.status(500).json({ error: 'Failed to fetch users' });
   }
-})
+});
 
 // Posting user info API // this is another way to do it
 app.post('/api/users', async (req, res) => {
