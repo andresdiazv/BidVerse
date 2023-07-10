@@ -98,7 +98,7 @@ const ItemDetail = () => {
     );
   }
 
-  return null; // Render nothing if item information is not available yet
+  return null;
 };
 
 export default ItemDetail;

@@ -1,21 +1,17 @@
-import React from 'react';
-import { auth } from '../Config/firebase'; // Import the Firebase auth instance
+import React from "react";
+import { auth } from "../Config/firebase";
 
 const LogoutButton = () => {
   const handleLogout = async () => {
     try {
-      await auth.signOut(); // Sign out the user
-      console.log('Logged out successfully'); // Log a success message
-      // Perform any additional actions after successful logout
+      await auth.signOut();
+      console.log("Logged out successfully");
     } catch (error) {
-      console.error('Error logging out:', error);
-      // Handle any errors that occur during logout
+      console.error("Error logging out:", error);
     }
   };
 
-  return (
-    <button onClick={handleLogout}>Logout</button>
-  );
+  return <button onClick={handleLogout}>Logout</button>;
 };
 
 export default LogoutButton;

@@ -14,12 +14,11 @@ import { useNavigate } from "react-router-dom";
 
 const CategoryPage = () => {
   const navigate = useNavigate();
-  const { category } = useParams(); // Fetch the category from the URL params
+  const { category } = useParams();
   const [items, setItems] = useState([]);
 
   useEffect(() => {
     const fetchItems = async () => {
-      // If category is undefined, return early
       if (!category) {
         return;
       }

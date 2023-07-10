@@ -61,7 +61,7 @@ const UserInformation = ({ uid }) => {
       );
   }
 
-  return null; // Render nothing if user information is not available yet
+  return null;
 };
 
 export default UserInformation;
