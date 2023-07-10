@@ -4,12 +4,9 @@ const port = 5000;
 const cors = require('cors');
 const path = require('path');
 const { db, auth, admin } = require('./config/firebase')
-const upload = multer({
-  storage: multer.memoryStorage(),
-  limits: {
-    fileSize: 5 * 1024 * 1024 // no larger than 5mb
-  },
-});
+
+const upload = multer({ dest: 'uploads' });
+ 
 
 const app = express();
 app.use(cors());
@@ -203,39 +200,31 @@ app.get('/api/items', async (req, res) => {
   }
 });
 
-app.post("/upload", upload.single("image"), async (req, res) => {
-  const userId = req.body.userId;
-  const file = req.file;
+app.post('/api/upload', upload.single('image'), async (req, res) => {
+  try {
+    // Handle the uploaded image
+    const imagePath = req.file.path;
 
-  // Ensure a file was provided
-  if (!file) {
-    res.status(400).send("No file uploaded.");
-    return;
+    // Upload the image file to Firebase Storage
+    const fileRef = ref(storage, `uploads/${req.file.filename}`);
+    const fileSnapshot = await uploadBytes(fileRef, req.file.buffer);
+
+    // Get the public download URL of the uploaded image
+    const imageUrl = await fileSnapshot.ref.getDownloadURL();
+
+    // Store the image URL in the Firebase Firestore collection
+    const uploadData = {
+      imageUrl,
+      createdAt: new Date(),
+    };
+
+    const uploadDocRef = await addDoc(collection(db, 'uploads'), uploadData);
+
+    res.json({ imageUrl });
+  } catch (error) {
+    console.error('Error uploading image:', error);
+    res.status(500).json({ error: 'Error uploading image' });
   }
-
-  const bucket = admin.storage().bucket();
-  const filename = Date.now() + file.originalname; // unique name using timestamp
-  const fileUpload = bucket.file(`${userId}/${filename}`);
-
-  const stream = fileUpload.createWriteStream({
-    metadata: {
-      contentType: file.mimetype,
-    },
-  });
-
-  stream.on("error", (error) => {
-    console.error("Error uploading file:", error);
-    res.status(500).send("Error uploading file");
-  });
-
-  stream.on("finish", () => {
-    fileUpload.makePublic().then(() => {
-      const imageUrl = `https://storage.googleapis.com/${bucket.name}/${userId}/${filename}`;
-      res.status(200).json({ imageUrl: imageUrl });
-    });
-  });
-
-  stream.end(file.buffer);
 });
 
   app.listen(port, () => {

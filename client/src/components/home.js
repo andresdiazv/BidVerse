@@ -18,6 +18,8 @@ import { useNavigate } from "react-router-dom";
 import Header from "./Header";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../Config/firebase";
+import {uploadBytes, getDownloadURL, ref} from 'firebase/storage';
+import { storage } from '../Config/firebase';
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -29,17 +31,31 @@ const HomePage = () => {
 
   useEffect(() => {
     const fetchItems = async () => {
-      const itemsCollection = collection(db, "items");
-      const itemsSnapshot = await getDocs(itemsCollection);
-      const itemsList = itemsSnapshot.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-      }));
-      setItems(itemsList);
-    };
+      try {
+        const querySnapshot = await getDocs(collection(db, 'items'));
+        const itemsData = [];
+        for (const doc of querySnapshot.docs) {
+          const item = doc.data();
+          // Retrieve the image URL from Firebase Storage based on the imageUrl field in the item data
+          if (item.imageUrl) {
+            const storageRef = ref(storage, item.imageUrl);
+            const downloadURL = await getDownloadURL(storageRef);
+            item.imageUrl = downloadURL;
+          }
+          itemsData.push({
+            id: doc.id,
+            ...item
+          });
+        }
+        setItems(itemsData);
+      } catch (error) {
+        console.error('Error fetching items:', error);
+      }
+    }
 
     fetchItems();
   }, []);
+
 
   const handleTabChange = (event, newValue) => {
     setValue(newValue);
@@ -84,29 +100,28 @@ const HomePage = () => {
       />
       <Container maxWidth="lg">
         <Grid container spacing={4}>
-          {items
-            .filter((item) => !category || item.category === category)
-            .map(
-              (
-                item // Filtering items based on category
-              ) => (
-                <Grid item key={item.id} xs={12} sm={6} md={4}>
-                  <Card onClick={() => handleItemClick(item)}>
-                    <CardMedia
-                      component="img"
-                      height="140"
-                      image={
-                        item.imageUrl || "http://path/to/your/default/image.jpg"
-                      }
-                      alt={item.title}
-                    />
-                    <CardContent>
-                      <Typography variant="h6">{item.title}</Typography>
-                    </CardContent>
-                  </Card>
-                </Grid>
+        {items
+  .filter((item) => !category || item.category === category)
+  .map((item) => (
+    <Grid item key={item.id} xs={12} sm={6} md={4}>
+      <Card onClick={() => handleItemClick(item)}>
+        {item.imageUrl ? (
+          <CardMedia
+            component="img"
+            height="300"
+            image={item.imageUrl}
+            alt={item.title}
+          />
+        ) : (
+          <div>No Image Available</div>
+        )}
+        <CardContent>
+          <Typography variant="h6">{item.title}</Typography>
+        </CardContent>
+      </Card>
+    </Grid>
               )
-            )}
+    )}
         </Grid>
       </Container>
     </>
