@@ -1,0 +1,28 @@
+@font-face {
+    font-family: 'Lecheet';
+    src: url('./Lecheet.ttf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Balance';
+    src: url('./Balance.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'RichuMastExtrude';
+    src: url('./RichuMastExtrude.ttf') format('opentype');
+}
+
+@font-face {
+    font-family: 'RichuMastRegular';
+    src: url('./RichuMastRegular.ttf') format('opentype');
+}
+
+@font-face {
+    font-family: 'RichuMastExtrudeShadow';
+    src: url('./RichuMastExtrudeShadow.ttf') format('opentype');
+}

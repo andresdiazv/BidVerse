@@ -67,7 +67,7 @@ const AddItems = () => {
         );
         console.log(response.data);
 
-        // Reset the form fields
+        
         setTitle("");
         setItem("");
         setCategory("");
