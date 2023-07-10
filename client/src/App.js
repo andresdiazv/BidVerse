@@ -13,6 +13,7 @@ import CategoryPage from "./components/CategoryPage";
 import Account from "./components/account";
 import PaymentOptions from './components/paymentOptions'
 
+
 const App = () => {
   return (
     <Router>
@@ -31,6 +32,7 @@ const App = () => {
         <Route path="/furniture" element={<CategoryPage />} />
         <Route path="/account" element={<Account/>} />
         <Route path="/paymentOptions" element={<PaymentOptions/>} />
+        <Route path="/item/:itemId" element={<ItemDetail/>} />
       </Routes>
     </Router>
   );

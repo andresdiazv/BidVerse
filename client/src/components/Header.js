@@ -81,15 +81,51 @@ const Header = ({ value, handleTabChange, searchTerm, handleSearch }) => {
           }}
         />
       </Box>
-      <Tabs value={value} onChange={handleTabChange} centered>
-        <Tab label="Electronics" component={RouterLink} to="/category/electronics" />
-        <Tab label="Sports" component={RouterLink} to="/category/sports" />
-        <Tab label="Cars" component={RouterLink} to="/category/cars" />
-        <Tab label="Food" component={RouterLink} to="/category/food" />
-        <Tab label="Toys" component={RouterLink} to="/category/toys" />
-        <Tab label="Furniture" component={RouterLink} to="/category/furniture" />
-        <Tab label="Post an Item" component={RouterLink} to="/addItem" />
-      </Tabs>
+      <Tabs value={value} onChange={handleTabChange} orientation="center"  
+       sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+      <Tab
+    label="Electronics"
+    component={RouterLink}
+    to="/category/electronics"
+    sx={{ fontSize: '1.5rem' }}
+  />
+  <Tab
+    label="Sports"
+    component={RouterLink}
+    to="/category/sports"
+    sx={{ fontSize: '1.5rem' }}
+  />
+  <Tab
+    label="Cars"
+    component={RouterLink}
+    to="/category/cars"
+    sx={{ fontSize: '1.5rem' }}
+  />
+  <Tab
+    label="Food"
+    component={RouterLink}
+    to="/category/food"
+    sx={{ fontSize: '1.5rem' }}
+  />
+  <Tab
+    label="Toys"
+    component={RouterLink}
+    to="/category/toys"
+    sx={{ fontSize: '1.5rem' }}
+  />
+  <Tab
+    label="Furniture"
+    component={RouterLink}
+    to="/category/furniture"
+    sx={{ fontSize: '1.5rem' }}
+  />
+  <Tab
+    label="Post an Item"
+    component={RouterLink}
+    to="/addItem"
+    sx={{ fontSize: '1.5rem' }}
+  />
+</Tabs>
       <Link component={RouterLink} to="/account" underline="none">
         <Avatar sx={accountLogoStyle} />
       </Link>

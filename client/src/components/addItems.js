@@ -13,22 +13,22 @@ import {
   FormControl,
   InputLabel,
 } from "@mui/material";
-import DatePicker from "@mui/lab/DatePicker";
 import Header from "./Header";
-
 import { useDropzone } from "react-dropzone";
+import { uploadBytes, getDownloadURL, ref } from "firebase/storage";
+import { storage } from "../Config/firebase";
+
+ 
 
 const AddItems = () => {
-
   const [title, setTitle] = useState("");
   const [item, setItem] = useState("");
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
   const [buyoutPrice, setBuyoutPrice] = useState("");
-  const [startTime, setStartTime] = useState(null);
-  const [endTime, setEndTime] = useState(null);
+  const [startTime, setStartTime] = useState("");
+  const [endTime, setEndTime] = useState("");
   const [image, setImage] = useState(null);
-  const [imageUrl, setImageUrl] = useState(null);
 
   const { getRootProps, getInputProps } = useDropzone({
     accept: "image/*",
@@ -36,7 +36,7 @@ const AddItems = () => {
       setImage(acceptedFiles[0]);
     },
   });
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -44,20 +44,10 @@ const AddItems = () => {
 
     if (currentUser) {
       try {
-        const formData = new FormData();
-        formData.append("image", image);
-        formData.append("userId", currentUser.uid);
-        const imgRes = await axios.post(
-          "http://localhost:5000/upload",
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
+        const storageRef = ref(storage, "images/" + image.name);
+        await uploadBytes(storageRef, image);
 
-        const imageUrl = imgRes.data.imageUrl;
+        const imageUrl = await getDownloadURL(storageRef);
 
         const newItem = {
           title,
@@ -86,34 +76,12 @@ const AddItems = () => {
         setStartTime("");
         setEndTime("");
         setImage(null);
-        setImageUrl(null);
 
         console.log("Item created successfully");
       } catch (error) {
         console.error("Error creating item:", error);
       }
     }
-  };
-
-  const logoContainerStyle = {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    marginBottom: "2rem",
-  };
-
-  const logoStyle = {
-    width: "80px",
-    height: "80px",
-    marginRight: "1rem",
-    borderRadius: "50%",
-    backgroundColor: "#3f51b5",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    color: "#fff",
-    fontSize: "40px",
-    fontWeight: 600,
   };
 
   return (
@@ -173,6 +141,8 @@ const AddItems = () => {
                   <MenuItem value={"food"}>Food</MenuItem>
                   <MenuItem value={"toys"}>Toys</MenuItem>
                   <MenuItem value={"furniture"}>Furniture</MenuItem>
+                  <MenuItem value={"Muisc"}>Music</MenuItem>
+                  <MenuItem value={"Other"}>Other</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
@@ -188,32 +158,36 @@ const AddItems = () => {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                id="buyoutPrice"
-                label="Buyout Price"
+                id="start time"
+                label="Start Time mm/dd/yyyy"
+                variant="outlined"
+                fullWidth
+                value={startTime}
+                onChange={(e) => setStartTime(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                id="end time"
+                label="End Time mm/dd/yyyy"
+                variant="outlined"
+                fullWidth
+                value={endTime}
+                onChange={(e) => setEndTime(e.target.value)}
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <TextField
+                id="buyout price"
+                label="Buyout Price $"
                 variant="outlined"
                 fullWidth
                 value={buyoutPrice}
                 onChange={(e) => setBuyoutPrice(e.target.value)}
               />
             </Grid>
-            <Grid item xs={6}>
-              <DatePicker
-                label="Start Time"
-                inputFormat="MM/dd/yyyy"
-                value={startTime}
-                onChange={(newValue) => setStartTime(newValue)}
-                renderInput={(params) => <TextField {...params} />}
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <DatePicker
-                label="End Time"
-                inputFormat="MM/dd/yyyy"
-                value={endTime}
-                onChange={(newValue) => setEndTime(newValue)}
-                renderInput={(params) => <TextField {...params} />}
-              />
-            </Grid>
+           
             <Grid item xs={12}>
               <div {...getRootProps()}>
                 <input {...getInputProps()} />
