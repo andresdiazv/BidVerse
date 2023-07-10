@@ -86,7 +86,6 @@ const AddItems = () => {
 
   return (
     <>
-      <Header />
       <Container
         maxWidth="sm"
         sx={{

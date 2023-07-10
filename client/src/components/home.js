@@ -27,7 +27,7 @@ const HomePage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [value, setValue] = useState(0);
   const [items, setItems] = useState([]);
-  const [category, setCategory] = useState(""); 
+  const [category, setCategory] = useState("");
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -90,13 +90,8 @@ const HomePage = () => {
 
   return (
     <>
-      <Header
-        value={value}
-        handleTabChange={handleTabChange}
-        searchTerm={searchTerm}
-        handleSearch={handleSearch}
-      />
-      <Container maxWidth="lg">
+      <Header />
+      <Container maxWidth="lg" sx={{ marginTop: '2rem' }}>
         <Grid container spacing={4}>
           {items
             .filter((item) => !category || item.category === category)
