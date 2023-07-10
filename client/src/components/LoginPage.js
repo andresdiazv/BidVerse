@@ -5,6 +5,7 @@ import { getAuth } from "firebase/auth";
 import { Container, Typography, TextField, Button, Link } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import logo from "../assets/bidverse.png";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -38,34 +39,21 @@ const LoginPage = () => {
     justifyContent: "center",
     marginBottom: "2rem",
   };
+
   const logoStyle = {
-    width: "80px",
-    height: "80px",
-    marginRight: "1rem",
-    borderRadius: "50%",
-    backgroundColor: "#3f51b5",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    color: "#fff",
-    fontSize: "40px",
-    fontWeight: 600,
+    height: "300px",
+    marginBottom: "-4rem",
+    marginTop: "-2rem",
+    width: "auto",
   };
 
   return (
     <Container maxWidth="sm" sx={{ mt: 8 }}>
       <div style={logoContainerStyle}>
-        <div style={logoStyle}>B</div>
-        <Typography
-          variant="h3"
-          component="h1"
-          align="center"
-          gutterBottom
-        ></Typography>
+        <Link component={RouterLink} to="/home" underline="none">
+          <img src={logo} alt="logo" style={logoStyle} />
+        </Link>
       </div>
-      <Typography variant="h4" component="h2" align="center" gutterBottom>
-        Login Page
-      </Typography>
       <form onSubmit={handleLogin}>
         <TextField
           label="Email"
