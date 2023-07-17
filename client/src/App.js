@@ -12,6 +12,7 @@ import HomePage from "./components/home";
 import CategoryPage from "./components/CategoryPage";
 import Account from "./components/account";
 import PaymentOptions from './components/paymentOptions'
+import ResetPasswordForm from "./components/resetPassword";
 
 
 const App = () => {
@@ -33,6 +34,8 @@ const App = () => {
         <Route path="/account" element={<Account/>} />
         <Route path="/paymentOptions" element={<PaymentOptions/>} />
         <Route path="/item/:itemId" element={<ItemDetail/>} />
+        <Route path="/resetPassword" element={<ResetPasswordForm />} />
+
       </Routes>
     </Router>
   );
