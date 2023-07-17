@@ -12,6 +12,7 @@ import {
   CardContent,
   InputAdornment,
   IconButton,
+  Box
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { useNavigate } from "react-router-dom";
@@ -20,6 +21,8 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "../Config/firebase";
 import { uploadBytes, getDownloadURL, ref } from "firebase/storage";
 import { storage } from "../Config/firebase";
+import background from "../assets/background.png";
+import { minHeight } from "@mui/system";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -91,8 +94,13 @@ const HomePage = () => {
   return (
     <>
       <Header />
-      <Container maxWidth="lg" sx={{ marginTop: '2rem' }}>
-        <Grid container spacing={4}>
+      <Container sx={{  backgroundColor: "white",
+        color: "black",
+        padding: "3rem 3",
+        height: "100vh",
+        width: "100%", 
+      }}>
+        <Grid container spacing={10}>
           {items
             .filter((item) => !category || item.category === category)
             .map((item) => (

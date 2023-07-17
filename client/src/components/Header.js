@@ -1,3 +1,4 @@
+
 import React from "react";
 import {
   Typography,
@@ -8,12 +9,15 @@ import {
   Link,
   Avatar,
   Box,
+
 } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
 import logo from "../assets/bidverse.png";
+import background from "../assets/background.png";
+import ItemList from "./searchBarFunc";
 
 const Header = ({ value, handleTabChange, searchTerm, handleSearch }) => {
   const logoContainerStyle = {
@@ -24,49 +28,114 @@ const Header = ({ value, handleTabChange, searchTerm, handleSearch }) => {
   };
 
   const logoStyle = {
-    height: "150px",
+    height: "250px",
     marginBottom: "-4rem",
     marginTop: "-2rem",
     width: "auto",
   };
 
-  const accountLogoStyle = {
-    position: "absolute",
-    top: "1rem",
-    right: "1rem",
-    width: "40px",
-    height: "40px",
-    backgroundColor: "#4b371c",
-    cursor: "pointer",
-  };
+  const headerStyle = {
+    backgroundImage: `url(${background})`, 
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+  }
+  
+
+
 
   return (
     <Container
-      maxWidth="lg"
-      sx={{ backgroundColor: "white", color: "black", padding: "3rem 3" }}
+      sx={{ color: "black", padding: "3rem 3" }}
     >
+           <Tabs
+        value={0} // Set the active tab index here
+        onChange={handleTabChange}
+        variant="fullWidth"
+        indicatorColor="secondary"
+        textColor="inherit"
+      >
+        <Tab
+          label="Account"
+          component={RouterLink}
+          to="/account"
+          sx={{
+            fontWeight: "bold",
+            fontSize: "1rem",
+          }}
+        />
+        <Tab
+          label="Orders"
+          component={RouterLink}
+          to="/orders"
+          sx={{
+            fontWeight: "bold",
+            fontSize: "1rem",
+          }}
+        />
+        <Tab
+          label="Help"
+          component={RouterLink}
+          to="/help"
+          sx={{
+            fontWeight: "bold",
+            fontSize: "1rem",
+          }}
+        />
+        <Tab
+          label="Careers"
+          component={RouterLink}
+          to="/careers"
+          sx={{
+            fontWeight: "bold",
+            fontSize: "1rem",
+          }}
+        />
+        <Tab
+          label="Privacy"
+          component={RouterLink}
+          to="/privacy"
+          sx={{
+            fontWeight: "bold",
+            fontSize: "1rem",
+          }}
+        />
+        <Tab
+          label="Settings"
+          component={RouterLink}
+          to="/settings"
+          sx={{
+            fontWeight: "bold",
+            fontSize: "1rem",
+          }}
+        />
+        <Tab
+          label="Notifications"
+          component={RouterLink}
+          to="/notifications"
+          sx={{
+            fontWeight: "bold",
+            fontSize: "1rem",
+          }}
+        />
+         <Tab
+          label="Logout"
+          component={RouterLink}
+          to="/logout"
+          sx={{
+            fontWeight: "bold",
+            fontSize: "1rem",
+          }}
+        />
+      </Tabs>
       <div style={logoContainerStyle}>
         <Link component={RouterLink} to="/home" underline="none">
           <img src={logo} alt="logo" style={logoStyle} />
         </Link>
       </div>
       <Link component={RouterLink} to="/home" underline="none"></Link>
-      <Box display="flex" justifyContent="center">
-        <TextField
-          value={searchTerm}
-          onChange={(e) => handleSearch(e.target.value)}
-          sx={{ width: '80%' }}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <IconButton>
-                  <SearchIcon />
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
-        />
-      </Box>
+          <Box sx={{ mt: 3, mb:3}}>
+         </Box>
+         <ItemList />
       <Tabs
         value={value}
         onChange={handleTabChange}
@@ -82,48 +151,46 @@ const Header = ({ value, handleTabChange, searchTerm, handleSearch }) => {
           label="Electronics"
           component={RouterLink}
           to="/category/electronics"
-          sx={{ fontSize: "1.5rem" }}
+          sx={{ fontSize: "1.5rem",  fontWeight: "bold", }}
         />
         <Tab
           label="Sports"
           component={RouterLink}
           to="/category/sports"
-          sx={{ fontSize: "1.5rem" }}
+          sx={{ fontSize: "1.5rem",  fontWeight: "bold",}}
         />
         <Tab
           label="Cars"
           component={RouterLink}
           to="/category/cars"
-          sx={{ fontSize: "1.5rem" }}
+          sx={{ fontSize: "1.5rem",  fontWeight: "bold", }}
         />
         <Tab
           label="Food"
           component={RouterLink}
           to="/category/food"
-          sx={{ fontSize: "1.5rem" }}
+          sx={{ fontSize: "1.5rem",  fontWeight: "bold", }}
         />
         <Tab
           label="Toys"
           component={RouterLink}
           to="/category/toys"
-          sx={{ fontSize: "1.5rem" }}
+          sx={{ fontSize: "1.5rem",  fontWeight: "bold", }}
         />
         <Tab
           label="Furniture"
           component={RouterLink}
           to="/category/furniture"
-          sx={{ fontSize: "1.5rem" }}
+          sx={{ fontSize: "1.5rem",  fontWeight: "bold", }}
         />
         <Tab
           label="Post an Item"
           component={RouterLink}
           to="/addItem"
-          sx={{ fontSize: "1.5rem" }}
+          sx={{ fontSize: "1.5rem",  fontWeight: "bold",}}
         />
       </Tabs>
-      <Link component={RouterLink} to="/account" underline="none">
-        <Avatar sx={accountLogoStyle} />
-      </Link>
+
     </Container>
   );
 };

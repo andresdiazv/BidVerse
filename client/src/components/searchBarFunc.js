@@ -2,24 +2,35 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { TextField, List, ListItem, ListItemText } from '@mui/material';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../Config/firebase";
 
 const ItemList = () => {
+  const navigate = useNavigate();
   const [items, setItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
+    const fetchItems = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "items"));
+        const itemsData = [];
+        for (const doc of querySnapshot.docs) {
+          const item = doc.data();
+          itemsData.push({
+            id: doc.id,
+            ...item,
+          })
+        }
+        setItems(itemsData);
+      } catch (error) {
+        console.error("Error fetching items:", error);
+      }
+    };
     fetchItems();
   }, []);
-
-  const fetchItems = async () => {
-    try {
-      const response = await axios.get('http://localhost:5000/api/items');
-      setItems(response.data);
-    } catch (error) {
-      console.error('Error fetching items:', error);
-    }
-  };
 
   const handleSearch = (e) => {
     const value = e.target.value;
@@ -35,12 +46,16 @@ const ItemList = () => {
     }
   };
 
+  const handleItemClick = (item) => {
+    navigate(`/item/${item.id}`);
+  };
+
   return (
     <div>
       <TextField
         label="Search"
         variant="outlined"
-        size="small"
+        size="large"
         fullWidth
         value={searchTerm}
         onChange={handleSearch}
@@ -49,11 +64,7 @@ const ItemList = () => {
         <List>
           {filteredItems.map((item) => (
             <ListItem
-              button
-              component={Link}
-              to={`/items/${item.id}`}
-              key={item.id}
-            >
+              key={item.id} onClick={() => handleItemClick(item)} button>
               <ListItemText primary={item.title} />
             </ListItem>
           ))}

@@ -52,29 +52,38 @@ app.post('/api/newPayment', async (req, res) => {
 })
 
 // Login API
-app.post('/api/auth/login' , async (req, res ) => {
-  try{
-    const { email, password } = req.body;
-    
-    //Get the user info from firestore collection to see if login exists
-    const userRef = db.collection('Users');
-    const querySnapshot = await userRef.where('email', '==', email).get();
+app.post('/api/auth/login', (req, res) => {
+  const { email, password } = req.body;
 
-    if(querySnapshot.empty) {
-      throw new Error('User not found');
+  // Authenticate the user with the provided email and password
+  // Perform the necessary checks and validations
+
+  User = auth.User;
+
+  // Example: Check if the user exists and the password matches
+  User.findOne({ email }, (err, user) => {
+    if (err) {
+      console.error('Error finding user:', err);
+      return res.status(500).json({ error: 'Internal server error' });
     }
 
-    const userDoc = querySnapshot.docs[0];
-
-    if (userDoc.data().password !== password){
-      throw new Error('Invalid password')
+    if (!user) {
+      return res.status(401).json({ error: 'Invalid email or password' });
     }
 
-    res.status(200).send('Sucessful login')
-  }catch (error) {
-    res.status(400).send(error.message);
-  }
-})
+    if (!user.verifyPassword(password)) {
+      return res.status(401).json({ error: 'Invalid email or password' });
+    }
+
+    // Generate a JWT token or session for authentication and authorization
+    // Return the token or session to the client for subsequent requests
+
+    // Example: Generate and return a JWT token
+    const token = generateToken(user);
+
+    res.status(200).json({ token });
+  });
+});
 
 // Logout API / STILL NEEDS WORK
 app.post('/api/auth/logout', async (req, res) => {

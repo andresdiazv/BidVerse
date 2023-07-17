@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { auth, signInWithEmailAndPassword } from "../Config/firebase";
-import { getAuth } from "firebase/auth";
+import { signInWithEmailAndPassword, getAuth, GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail } from "firebase/auth";
 import { Container, Typography, TextField, Button, Link } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/bidverse.png";
 
 const LoginPage = () => {
+  const auth = getAuth();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -19,20 +19,45 @@ const LoginPage = () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
 
-      const response = await axios.post(
-        "http://localhost:5000/api/auth/login",
-        {
-          email,
-          password,
-        }
-      );
       navigate("/home");
-      console.log(response.data);
+  
     } catch (error) {
       console.error("Error logging in:", error);
       setErrorMessage("Invalid email or password");
     }
   };
+
+   const handleGoogleLogin = async () => {
+    const auth = getAuth();
+    const provider = new GoogleAuthProvider();
+   
+   try {
+
+    const result = await signInWithPopup(auth, provider);
+    const user = result.user
+
+    navigate('/home');
+   } catch (error) {
+    console.error('Error signing in with Google: ', error);
+
+   }
+  }
+
+  const handleResetPassword = async (email) => {
+    const auth = getAuth();
+
+    try {
+      await sendPasswordResetEmail(auth, email);
+      console.log('Password reset email sent to:', email);
+    } catch (error) {
+      console.error('Error sendint password reset email:', error);
+    }
+  }
+
+  const handleResetClick = () => {
+    handleResetPassword(email);
+  }
+
   const logoContainerStyle = {
     display: "flex",
     alignItems: "center",
@@ -50,7 +75,7 @@ const LoginPage = () => {
   return (
     <Container maxWidth="sm" sx={{ mt: 8 }}>
       <div style={logoContainerStyle}>
-        <Link component={RouterLink} to="/home" underline="none">
+        <Link component={RouterLink} to="/" underline="none">
           <img src={logo} alt="logo" style={logoStyle} />
         </Link>
       </div>
@@ -85,6 +110,9 @@ const LoginPage = () => {
           </Typography>
         )}
       </form>
+      <Button variant="contained" onClick={handleGoogleLogin} fullWidth style={{ marginTop: '2rem' }}>
+          Login with Google
+        </Button>
       <Typography variant="body2" align="center" sx={{ mt: 2 }}>
         Don't have an account?{" "}
         <Link component={RouterLink} to="/register" underline="hover">
@@ -93,7 +121,7 @@ const LoginPage = () => {
       </Typography>
       <Typography variant="body2" align="center" sx={{ mt: 2 }}>
         Forgot password?{" "}
-        <Link href="/Reset Password" underline="hover">
+        <Link component={RouterLink} to="/resetPassword" underline="hover">
           Reset Password
         </Link>
       </Typography>
