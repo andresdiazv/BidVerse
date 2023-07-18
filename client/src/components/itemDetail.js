@@ -72,7 +72,7 @@ const ItemDetail = () => {
 
     const styles = {
       container: {
-        backgroundColor: "#D7CCC8",
+        backgroundColor: "#6D72C3",
         padding: "2rem",
         borderRadius: "8px",
         boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.1)",
@@ -80,19 +80,19 @@ const ItemDetail = () => {
       header: {
         fontWeight: 700,
         marginBottom: "1rem",
-        color: "#795548",
+        color: "white",
       },
       card: {
         marginBottom: "1rem",
-        borderColor: "#795548",
+        borderColor: "black",
       },
       boldText: {
         fontWeight: "bold",
         marginBottom: "0.5rem",
-        color: "#795548",
+        color: "purple",
       },
       image: {
-        maxWidth: "100%",
+        maxWidth: "85%",
         height: "auto",
         marginTop: "1rem",
       },
@@ -102,8 +102,8 @@ const ItemDetail = () => {
         width: "100%",
       },
       button: {
-        backgroundColor: "#795548",
-        color: "#FFFFFF",
+        backgroundColor: "#56118c",
+        color: "white",
       },
     };
 

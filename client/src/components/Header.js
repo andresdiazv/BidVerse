@@ -1,4 +1,3 @@
-
 import React from "react";
 import {
   Typography,
@@ -9,7 +8,6 @@ import {
   Link,
   Avatar,
   Box,
-
 } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
@@ -28,41 +26,27 @@ const Header = ({ value, handleTabChange, searchTerm, handleSearch }) => {
   };
 
   const logoStyle = {
-    height: "250px",
-    marginBottom: "-4rem",
-    marginTop: "-2rem",
+    height: "100px",
+    marginBottom: "0rem",
+    marginTop: "1rem",
     width: "auto",
   };
 
   const headerStyle = {
-    backgroundImage: `url(${background})`, 
+    backgroundImage: `url(${background})`,
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
-  }
-  
-
-
+  };
 
   return (
-    <Container
-      sx={{ color: "black", padding: "3rem 3" }}
-    >
-           <Tabs
-        value={0} // Set the active tab index here
+    <Container sx={{ color: "black", padding: "3rem 3" }}>
+      <Tabs
+        value={0}
         onChange={handleTabChange}
         variant="fullWidth"
         indicatorColor="secondary"
         textColor="inherit"
       >
-        <Tab
-          label="Account"
-          component={RouterLink}
-          to="/account"
-          sx={{
-            fontWeight: "bold",
-            fontSize: "1rem",
-          }}
-        />
         <Tab
           label="Orders"
           component={RouterLink}
@@ -82,15 +66,6 @@ const Header = ({ value, handleTabChange, searchTerm, handleSearch }) => {
           }}
         />
         <Tab
-          label="Careers"
-          component={RouterLink}
-          to="/careers"
-          sx={{
-            fontWeight: "bold",
-            fontSize: "1rem",
-          }}
-        />
-        <Tab
           label="Privacy"
           component={RouterLink}
           to="/privacy"
@@ -102,7 +77,7 @@ const Header = ({ value, handleTabChange, searchTerm, handleSearch }) => {
         <Tab
           label="Settings"
           component={RouterLink}
-          to="/settings"
+          to="/account"
           sx={{
             fontWeight: "bold",
             fontSize: "1rem",
@@ -117,7 +92,7 @@ const Header = ({ value, handleTabChange, searchTerm, handleSearch }) => {
             fontSize: "1rem",
           }}
         />
-         <Tab
+        <Tab
           label="Logout"
           component={RouterLink}
           to="/logout"
@@ -133,9 +108,8 @@ const Header = ({ value, handleTabChange, searchTerm, handleSearch }) => {
         </Link>
       </div>
       <Link component={RouterLink} to="/home" underline="none"></Link>
-          <Box sx={{ mt: 3, mb:3}}>
-         </Box>
-         <ItemList />
+      <Box sx={{ mt: 3, mb: 3 }}></Box>
+      <ItemList />
       <Tabs
         value={value}
         onChange={handleTabChange}
@@ -151,46 +125,45 @@ const Header = ({ value, handleTabChange, searchTerm, handleSearch }) => {
           label="Electronics"
           component={RouterLink}
           to="/category/electronics"
-          sx={{ fontSize: "1.5rem",  fontWeight: "bold", }}
+          sx={{ fontSize: "1.5rem", fontWeight: "bold" }}
         />
         <Tab
           label="Sports"
           component={RouterLink}
           to="/category/sports"
-          sx={{ fontSize: "1.5rem",  fontWeight: "bold",}}
+          sx={{ fontSize: "1.5rem", fontWeight: "bold" }}
         />
         <Tab
           label="Cars"
           component={RouterLink}
           to="/category/cars"
-          sx={{ fontSize: "1.5rem",  fontWeight: "bold", }}
+          sx={{ fontSize: "1.5rem", fontWeight: "bold" }}
         />
         <Tab
           label="Food"
           component={RouterLink}
           to="/category/food"
-          sx={{ fontSize: "1.5rem",  fontWeight: "bold", }}
+          sx={{ fontSize: "1.5rem", fontWeight: "bold" }}
         />
         <Tab
           label="Toys"
           component={RouterLink}
           to="/category/toys"
-          sx={{ fontSize: "1.5rem",  fontWeight: "bold", }}
+          sx={{ fontSize: "1.5rem", fontWeight: "bold" }}
         />
         <Tab
           label="Furniture"
           component={RouterLink}
           to="/category/furniture"
-          sx={{ fontSize: "1.5rem",  fontWeight: "bold", }}
+          sx={{ fontSize: "1.5rem", fontWeight: "bold" }}
         />
         <Tab
           label="Post an Item"
           component={RouterLink}
           to="/addItem"
-          sx={{ fontSize: "1.5rem",  fontWeight: "bold",}}
+          sx={{ fontSize: "1.5rem", fontWeight: "bold" }}
         />
       </Tabs>
-
     </Container>
   );
 };
