@@ -79,9 +79,9 @@ const RegisterPage = () => {
   };
 
   const logoStyle = {
-    height: "300px",
-    marginBottom: "-4rem",
-    marginTop: "-2rem",
+    height: "100px",
+    marginBottom: "0rem",
+    marginTop: "1rem",
     width: "auto",
   };
 
