@@ -23,6 +23,7 @@ const Header = ({ value, handleTabChange, searchTerm, handleSearch }) => {
     alignItems: "center",
     justifyContent: "center",
     marginBottom: "2rem",
+    width: "500px"
   };
 
   const logoStyle = {
@@ -95,7 +96,7 @@ const Header = ({ value, handleTabChange, searchTerm, handleSearch }) => {
         <Tab
           label="Logout"
           component={RouterLink}
-          to="/logout"
+          to="/"
           sx={{
             fontWeight: "bold",
             fontSize: "1rem",

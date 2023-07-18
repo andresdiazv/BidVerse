@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { db, auth, updateDoc, doc } from "../Config/firebase";
-import { collection, getDocs } from "firebase/firestore";
+import { addDoc, collection, getDocs, writeBatch  } from "firebase/firestore";
 import Header from "./Header";
 import background from "../assets/background.png";
 import { useNavigate } from "react-router-dom";
@@ -42,13 +42,34 @@ const ItemDetail = () => {
 
   const user = auth.currentUser;
 
+  const generateUniqueId = () => {
+    // Generate a unique ID using your preferred method
+    // Example: Using the current timestamp
+    return Date.now().toString();
+  };
+
   const placeBid = async () => {
     if (user && newBid > itemInfo.highestBid || !itemInfo.highestBid) {
       const itemRef = doc(db, "items", itemId);
-      await updateDoc(itemRef, {
+      const bidCollectionRef = collection(db, "bids");
+  
+      const itemUpdate = {
         highestBid: newBid,
         highestBidder: user.email,
-      });
+      };
+  
+      const bidUpdate = {
+        userID: user.email,
+        bidPrice: newBid,
+        itemId,
+        bidId: generateUniqueId(),
+      };
+  
+      const batch = writeBatch(db);
+      batch.update(itemRef, itemUpdate);
+      batch.set(doc(bidCollectionRef, bidUpdate.bidId), bidUpdate);
+      await batch.commit();
+  
       setItemInfo({
         ...itemInfo,
         highestBid: newBid,
