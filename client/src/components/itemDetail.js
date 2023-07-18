@@ -15,10 +15,13 @@ import axios from "axios";
 import { db, auth, updateDoc, doc } from "../Config/firebase";
 import { addDoc, collection, getDocs, writeBatch  } from "firebase/firestore";
 import Header from "./Header";
+import background from "../assets/background.png";
+import { useNavigate } from "react-router-dom";
 
 const ItemDetail = () => {
   const [itemInfo, setItemInfo] = useState(null);
   const [newBid, setNewBid] = useState("");
+  const [newBuyout, setBuyout] = useState("");
   const { itemId } = useParams();
 
   useEffect(() => {
@@ -77,6 +80,22 @@ const ItemDetail = () => {
     }
   };
 
+  const currentUser1 = auth.currentUser;
+  const navigate = useNavigate();
+
+  const buyOut = async () => {
+    if (itemInfo && currentUser) {
+      const itemRef = doc(db, "items", itemId);
+      await updateDoc(itemRef, {
+        userBuyout: newBuyout,
+        buyoutUser: currentUser1.email
+      })
+      navigate('/paymentOptions')
+    } else {
+      alert("You must have a payment option registered first befor you can buyout!")
+    }
+  }
+
   const currentUser = auth.currentUser;
   if (itemInfo && currentUser) {
     const name = currentUser.email;
@@ -126,6 +145,13 @@ const ItemDetail = () => {
         backgroundColor: "#56118c",
         color: "white",
       },
+    };
+
+
+    const headerStyle = {
+      backgroundImage: `url(${background})`,
+      backgroundRepeat: "no-repeat",
+      backgroundSize: "cover",
     };
 
     return (
@@ -205,7 +231,6 @@ const ItemDetail = () => {
                   <Typography variant="h6" gutterBottom>
                     {itemInfo.highestBidder}
                   </Typography>
-                  
                   <TextField
                     variant="outlined"
                     type="number"
@@ -229,33 +254,19 @@ const ItemDetail = () => {
               <Card variant="outlined" sx={styles.card}>
                 <CardContent>
                   <Typography variant="h5" gutterBottom sx={styles.boldText}>
-                    Highest bid:
+                    Buyout Price:
                   </Typography>
                   <Typography variant="h6" gutterBottom>
-                    ${itemInfo.highestBid}
+                    {itemInfo.buyoutPrice}
                   </Typography>
-                  <Typography variant="h5" gutterBottom sx={styles.boldText}>
-                    Highest bidder:
-                  </Typography>
-                  <Typography variant="h6" gutterBottom>
-                    {itemInfo.highestBidder}
-                  </Typography>
-                  
-                  <TextField
-                    variant="outlined"
-                    type="number"
-                    label="Your bid"
-                    value={newBid}
-                    onChange={(e) => setNewBid(e.target.value)}
-                    sx={styles.bidTextField}
-                  />
+                
                   <Button
                     variant="contained"
                     color="primary"
-                    onClick={placeBid}
+                    onClick={buyOut}
                     sx={styles.button}
                   >
-                    Place bid
+                    Buy Now
                   </Button>
                 </CardContent>
               </Card>
